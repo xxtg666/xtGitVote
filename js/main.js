@@ -41,6 +41,8 @@ function on_btn_logout(){
     location.reload()
 }
 
+document.addEventListener("load",loadcode)
+function loadcode(){
 let code = getQueryVariable("code")
 if (code != false){
     $.ajax({
@@ -66,7 +68,7 @@ if (code != false){
             })
         }
     })
-}
+}}
 
 let username = getCookie("username")
 if(username!=""){
