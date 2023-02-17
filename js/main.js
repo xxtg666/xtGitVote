@@ -10,6 +10,16 @@ function getQueryVariable(variable)
     }
     return false;
 }
+function _getQueryVariable(query,variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return false;
+}
 function setCookie(cname,cvalue)
 {
   document.cookie = cname + "=" + cvalue + "; ";
@@ -39,10 +49,9 @@ function on_btn_logout(){
 
 let code = getQueryVariable()
 if (code !== false){
-    $.post(`https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
+    $.get(`https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
     function(data,status){
-        let accessdata = JSON.parse(data)
-        let accessToken = accessdata.access_token
+        let accessToken = _getQueryVariable(data,"accessToken")
         setCookie("accessToken",accessToken)
         $.ajax({
             headers:{
