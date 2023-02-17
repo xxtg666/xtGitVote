@@ -41,27 +41,30 @@ function on_btn_logout(){
     location.reload()
 }
 
-let code = getQueryVariable()
-if (code !== false){
-    $.get(`https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
-    function(data,status){
-        let accessToken = _getQueryVariable(data,"accessToken")
-        setCookie("accessToken",accessToken)
-        $.ajax({
-            headers:{
-                accept: 'application/json',
-                Authorization: `token ${accessToken}`
-            },
-            type:"GET",
-            url:"https://api.github.com/user",
-            success:function(data,status){
-                let userdata = JSON.parse(data)
-                let username = userdata.name
-                setCookie("username",username)
-                document.getElementById("ul-github-menu").innerHTML=`<li><a class="dropdown-item" href="#" id="btn-username">${username}</a></li><li><a class="dropdown-item" href="#" id="btn-logout">退出登录</a></li>`
-                document.getElementById("btn-logout").addEventListener("click",on_btn_logout)
-            }
-        })
+let code = getQueryVariable("code")
+if (code != false){
+    $.ajax({
+        url:`https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
+        type:"GET",
+        success:function(data,status){
+            let accessToken = _getQueryVariable(data,"accessToken")
+            setCookie("accessToken",accessToken)
+            $.ajax({
+                headers:{
+                    accept: 'application/json',
+                    Authorization: `token ${accessToken}`
+                },
+                type:"GET",
+                url:"https://api.github.com/user",
+                success:function(data,status){
+                    let userdata = JSON.parse(data)
+                    let username = userdata.name
+                    setCookie("username",username)
+                    document.getElementById("ul-github-menu").innerHTML=`<li><a class="dropdown-item" href="#" id="btn-username">${username}</a></li><li><a class="dropdown-item" href="#" id="btn-logout">退出登录</a></li>`
+                    document.getElementById("btn-logout").addEventListener("click",on_btn_logout)
+                }
+            })
+        }
     })
 }
 
