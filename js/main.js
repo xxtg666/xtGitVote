@@ -40,6 +40,7 @@ function on_btn_logout(){
     setCookie("accessToken","")
     location.reload()
 }
+document.getElementById("window-login-failed-button").addEventListener("click",on_btn_logout)
 
 let code = getQueryVariable("code")
 if (code != false){
@@ -50,6 +51,9 @@ if (code != false){
             let accessToken = _getQueryVariable(data,"access_token")
             setCookie("accessToken",accessToken)
             window.location.href = siteURL
+        },
+        error:function(data,status){
+            new mdb.Modal(document.getElementById("window-login-failed")).show()
         }
     })
 }
@@ -69,6 +73,9 @@ $.ajax({
         document.getElementById("img-github-avatar").src=useravatar
         document.getElementById("ul-github-menu").innerHTML=`<li><a class="dropdown-item" href="#" id="btn-username">${username}</a></li><li><a class="dropdown-item" href="#" id="btn-logout">退出登录</a></li>`
         document.getElementById("btn-logout").addEventListener("click",on_btn_logout)
+    },
+    error:function(data,status){
+        new mdb.Modal(document.getElementById("window-login-failed")).show()
     }
 })
 }
