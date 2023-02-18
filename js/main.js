@@ -139,13 +139,7 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
                 accept: 'application/json',
                 Authorization: `Bearer ${accessToken}`
             },
-            data:{
-                owner:dataRepo.split("/")[0],
-                repo:dataRepo.split("/")[1],
-                name:"xtGitVote",
-                description: 'xtGitVote Data Storage. DO NOT DELETE THIS',
-                color:"3b71ca"
-            },
+            data:`{"name":"xtGitVote","description":"xtGitVote Data Storage. DO NOT DELETE THIS","color":"3b71ca"}`,
             type:"POST",
             url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
             success:function(data,status){
@@ -160,13 +154,7 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
                 accept: 'application/json',
                 Authorization: `Bearer ${accessToken}`
             },
-            data:{
-                owner:dataRepo.split("/")[0],
-                repo:dataRepo.split("/")[1],
-                name:"xtGitVoteActive",
-                description: 'xtGitVote Data Storage. DO NOT DELETE THIS',
-                color:"d6f0e0"
-            },
+            data:`{"name":"xtGitVoteActive","description":"xtGitVote Data Storage. DO NOT DELETE THIS","color":"d6f0e0"}`,
             type:"POST",
             url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
             success:function(data,status){
@@ -181,13 +169,7 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
                 accept: 'application/json',
                 Authorization: `Bearer ${accessToken}`
             },
-            data:{
-                owner:dataRepo.split("/")[0],
-                repo:dataRepo.split("/")[1],
-                name:"xtGitVoteEnded",
-                description: 'xtGitVote Data Storage. DO NOT DELETE THIS',
-                color:"f9e1e5"
-            },
+            data:`{"name":"xtGitVoteEnded","description":"xtGitVote Data Storage. DO NOT DELETE THIS","color":"f9e1e5"}`,
             type:"POST",
             url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
             success:function(data,status){
