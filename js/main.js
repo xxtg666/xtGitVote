@@ -34,7 +34,7 @@ function getCookie(cname)
   return "";
 }
 document.getElementById("btn-login-with-github").addEventListener("click",function(){
-    window.location.href=`https://github.com/login/oauth/authorize?client_id=${clientID}`
+    window.location.href=`https://github.com/login/oauth/authorize?client_id=${clientID}&scope=repo`
 })
 document.getElementById("btn-new-vote").addEventListener("click",function(){
     malert("btn-new-vote")
