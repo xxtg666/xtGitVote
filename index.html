@@ -15,6 +15,7 @@
     <script src="js/jquery-3.6.3.min.js"></script>
   </head>
   <body>
+<!-- 导航栏 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <button
@@ -69,6 +70,27 @@
     </div>
   </div>
 </nav>
+<!-- 存储库无效 -->
+<div id="div-repo-no-label" class="p-5 text-center bg-light" style="display:none;">
+  <h2 class="mb-3">存储库未初始化</h2>
+  <h5 class="mb-3">存储库内没有用于存储投票数据的 issue label</h5>
+  <h5 class="mb-3">如果你是存储库管理员，请尝试点击下方的按钮</h5>
+  <a class="btn btn-primary" role="button" id="btn-init-repo">初始化</a>
+</div>
+<div id="div-notfound-repo" class="p-5 text-center bg-light" style="display:none;">
+  <h2 class="mb-3">存储库无效</h2>
+  <h5 class="mb-3">dataRepo 对应的数据存储库不存在或未公开，请联系网站管理员</h5>
+</div>
+<!-- 投票页面主体 -->
+<div id="div-votes-tip" class="p-5 text-center bg-light" style="display:none;">
+  <h2 class="mb-3">xxtg666-xtGitVote-投票站</h2>
+  <h5 class="mb-3">这是一个使用 GitHub Repo 存储数据的投票网站</h5>
+  <h5 class="mb-3">下方的列表是投票列表</h5>
+  <h5 class="mb-3">如果你有管理员权限，可以点击右上角创建投票</h5>
+</div>
+<div class="row" id="div-votes" style="display:none;">
+</div>
+<!-- 提示窗口 -->
 <div class="modal fade" id="window-login-failed" tabindex="-1" data-mdb-keyboard="false" data-mdb-backdrop="static" aria-labelledby="window-login-failed-label" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -82,6 +104,20 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="window-js" tabindex="-1" data-mdb-keyboard="false" data-mdb-backdrop="static" aria-labelledby="window-js-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="window-js-label"></h5>
+      </div>
+      <div class="modal-body" id="window-js-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="window-js-button"></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- js -->
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/mdb.min.js"></script>
