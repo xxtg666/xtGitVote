@@ -137,7 +137,7 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
         $.ajax({
             headers:{
                 accept: 'application/json',
-                Authorization: `token ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
             data:{
                 owner:dataRepo.split("/")[0],
@@ -158,7 +158,7 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
         $.ajax({
             headers:{
                 accept: 'application/json',
-                Authorization: `token ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
             data:{
                 owner:dataRepo.split("/")[0],
@@ -179,7 +179,7 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
         $.ajax({
             headers:{
                 accept: 'application/json',
-                Authorization: `token ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             },
             data:{
                 owner:dataRepo.split("/")[0],
