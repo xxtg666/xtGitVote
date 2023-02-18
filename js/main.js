@@ -149,7 +149,49 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
             type:"POST",
             url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
             success:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成"
+                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 (1/3)"
+            },
+            error:function(data,status){
+                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有权限创建 label"
+            }
+        })
+        $.ajax({
+            headers:{
+                accept: 'application/json',
+                Authorization: `token ${accessToken}`
+            },
+            data:{
+                owner:dataRepo.split("/")[0],
+                repo:dataRepo.split("/")[1],
+                name:"xtGitVoteActive",
+                description: 'xtGitVote Data Storage. DO NOT DELETE THIS',
+                color:"d6f0e0"
+            },
+            type:"POST",
+            url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
+            success:function(data,status){
+                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 (2/3)"
+            },
+            error:function(data,status){
+                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有权限创建 label"
+            }
+        })
+        $.ajax({
+            headers:{
+                accept: 'application/json',
+                Authorization: `token ${accessToken}`
+            },
+            data:{
+                owner:dataRepo.split("/")[0],
+                repo:dataRepo.split("/")[1],
+                name:"xtGitVoteEnded",
+                description: 'xtGitVote Data Storage. DO NOT DELETE THIS',
+                color:"f9e1e5"
+            },
+            type:"POST",
+            url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
+            success:function(data,status){
+                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 (3/3)"
                 setTimeout(function(){location.reload()},1000)
             },
             error:function(data,status){
