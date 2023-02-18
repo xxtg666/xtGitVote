@@ -38,7 +38,6 @@ document.getElementById("btn-new-vote").addEventListener("click",function(){
 })
 function on_btn_logout(){
     setCookie("accessToken","")
-    setCookie("username","")
     location.reload()
 }
 
