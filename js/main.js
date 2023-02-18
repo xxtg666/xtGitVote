@@ -46,7 +46,7 @@ function loadcode(){
 let code = getQueryVariable("code")
 if (code != false){
     $.ajax({
-        url:`https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
+        url:`https://ac.xxtg666.top/https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
         type:"GET",
         success:function(data,status){
             let accessToken = _getQueryVariable(data,"accessToken")
@@ -57,7 +57,7 @@ if (code != false){
                     Authorization: `token ${accessToken}`
                 },
                 type:"GET",
-                url:"https://api.github.com/user",
+                url:"https://ac.xxtg666.top/https://api.github.com/user",
                 success:function(data,status){
                     let userdata = JSON.parse(data)
                     let username = userdata.name
