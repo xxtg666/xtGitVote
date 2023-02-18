@@ -47,7 +47,7 @@ if (code != false){
         url:`https://ac.xxtg666.top/https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
         type:"GET",
         success:function(data,status){
-            let accessToken = _getQueryVariable(data,"accessToken")
+            let accessToken = _getQueryVariable(data,"access_token")
             setCookie("accessToken",accessToken)
             $.ajax({
                 headers:{
