@@ -103,16 +103,12 @@ $.ajax({
                     accept: 'application/json',
                 },
                 type: "GET",
-                url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues`,
+                url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues?state=all&labels=xtGitVote`,
                 success:function(data,status){
                     document.getElementById("div-votes").style=""
                     document.getElementById("div-votes-tip").style=""
                     for(d in data){
-                        for(l in data[d].labels){
-                            if((data[d].labels)[l].name=="xtGitVote"){
-                                // data[d]
-                            }
-                        }
+                        // data[d]
                     }
                     displayvote("title1","body1",true,1,"user1")
                     displayvote("title2","body2",false,2,"user2")
@@ -143,7 +139,7 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
                 accept: 'application/json',
                 Authorization: `token ${accessToken}`
             },
-            body:{
+            data:{
                 name:"xtGitVote"
             },
             type:"POST",
