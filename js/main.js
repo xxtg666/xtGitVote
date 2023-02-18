@@ -140,7 +140,11 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
                 Authorization: `token ${accessToken}`
             },
             data:{
-                name:"xtGitVote"
+                owner:dataRepo.split("/")[0],
+                repo:dataRepo.split("/")[1],
+                name:"xtGitVote",
+                description: 'xtGitVote Data Storage. DO NOT DELETE THIS',
+                color:"3b71ca"
             },
             type:"POST",
             url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
