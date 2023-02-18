@@ -1,5 +1,6 @@
 let clientID = "dcbb5c698b252fbc33a3"
 let clientSecret = "4349f2638965852f835084030d98b28250fa3d43"
+let siteURL = "https://vote.xxtg666.top"
 function getQueryVariable(variable)
 {
     var query = window.location.search.substring(1);
@@ -49,28 +50,26 @@ if (code != false){
         success:function(data,status){
             let accessToken = _getQueryVariable(data,"access_token")
             setCookie("accessToken",accessToken)
-            $.ajax({
-                headers:{
-                    accept: 'application/json',
-                    Authorization: `token ${accessToken}`
-                },
-                type:"GET",
-                url:"https://ac.xxtg666.top/https://api.github.com/user",
-                success:function(data,status){
-                    // let userdata = JSON.parse(data)
-                    let userdata = data
-                    let username = userdata.name
-                    setCookie("username",username)
-                    document.getElementById("ul-github-menu").innerHTML=`<li><a class="dropdown-item" href="#" id="btn-username">${username}</a></li><li><a class="dropdown-item" href="#" id="btn-logout">退出登录</a></li>`
-                    document.getElementById("btn-logout").addEventListener("click",on_btn_logout)
-                }
-            })
+            window.location.href = siteURL
         }
     })
 }
 
-let username = getCookie("username")
-if(username!=""){
-    document.getElementById("ul-github-menu").innerHTML=`<li><a class="dropdown-item" href="#" id="btn-username">${username}</a></li><li><a class="dropdown-item" href="#" id="btn-logout">退出登录</a></li>`
-    document.getElementById("btn-logout").addEventListener("click",on_btn_logout)
+let accessToken = getCookie("accessToken")
+if(accessToken!=""){
+$.ajax({
+    headers:{
+        accept: 'application/json',
+        Authorization: `token ${accessToken}`
+    },
+    type:"GET",
+    url:"https://ac.xxtg666.top/https://api.github.com/user",
+    success:function(data,status){
+        let username = data.name
+        let useravatar = data.avatar_url
+        document.getElementById("img-github-avatar").src=useravatar
+        document.getElementById("ul-github-menu").innerHTML=`<li><a class="dropdown-item" href="#" id="btn-username">${username}</a></li><li><a class="dropdown-item" href="#" id="btn-logout">退出登录</a></li>`
+        document.getElementById("btn-logout").addEventListener("click",on_btn_logout)
+    }
+})
 }
