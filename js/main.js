@@ -57,7 +57,8 @@ if (code != false){
                 type:"GET",
                 url:"https://ac.xxtg666.top/https://api.github.com/user",
                 success:function(data,status){
-                    let userdata = JSON.parse(data)
+                    // let userdata = JSON.parse(data)
+                    let userdata = data
                     let username = userdata.name
                     setCookie("username",username)
                     document.getElementById("ul-github-menu").innerHTML=`<li><a class="dropdown-item" href="#" id="btn-username">${username}</a></li><li><a class="dropdown-item" href="#" id="btn-logout">退出登录</a></li>`
