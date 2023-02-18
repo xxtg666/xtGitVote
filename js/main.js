@@ -1,6 +1,4 @@
-let clientID = "dcbb5c698b252fbc33a3"
-let clientSecret = "4349f2638965852f835084030d98b28250fa3d43"
-let siteURL = "https://vote.xxtg666.top"
+
 function getQueryVariable(variable)
 {
     var query = window.location.search.substring(1);
