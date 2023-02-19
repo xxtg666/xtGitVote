@@ -70,15 +70,20 @@ $.ajax({
 let code = getQueryVariable("id")
 if (code != false){
     $.ajax({
-        url:`https://ac.xxtg666.top/https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
+        url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}`,
         type:"GET",
         success:function(data,status){
-            let accessToken = _getQueryVariable(data,"access_token")
-            setCookie("accessToken",accessToken)
-            window.location.href = siteURL
+            document.getElementById("h-vote-title").innerHTML=data["title"]
+            if(data["state"]=="open"){
+                document.getElementById("h-vote-title").innerHTML+='&ensp;<span class="badge rounded-pill badge-success">进行中</span>'
+            }else{
+                document.getElementById("h-vote-title").innerHTML+='&ensp;<span class="badge rounded-pill badge-danger">已截止</span>'
+            }
+            document.getElementById("h-vote-body").innerHTML=b64d(data["body"].split("\n")[0])
+            document.getElementById("div-vote-tb").style=""
         },
         error:function(data,status){
-            new mdb.Modal(document.getElementById("window-login-failed")).show()
+            document.getElementById("div-notfound-id").style=""
         }
     })
 }
