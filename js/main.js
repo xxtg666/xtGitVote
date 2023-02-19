@@ -285,4 +285,20 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
         bodystr+=`${choose[i]}\n`
     }
     alert(bodystr)
+    $.ajax({
+        headers:{
+            accept: 'application/json',
+            Authorization: `Bearer ${accessToken}`
+        },
+        data:`{114514}`,
+        type:"POST",
+        url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues`,
+        success:function(data,status){
+
+        },
+        error:function(data,status){
+            document.getElementById("btn-create-vote-submit").innerHTML="错误：你没有权限发起投票"
+            document.getElementById("btn-create-vote-submit").disabled="disabled"
+        }
+    })
 })
