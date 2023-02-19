@@ -88,69 +88,66 @@ if (code != false){
             $.ajax({
                 url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}/comments`,
                 type:"GET",
-                success:function(data,status){
-                    for(i in data){
-                        if(data[i]["user"]["login"]==username){
+                success:function(idata,status){
+                    for(i in idata){
+                        if(idata[i]["user"]["login"]==username){
                             userVoted=true
                         }
                     }
-                    comments=data
+                    comments=idata
+                    if((!userVoted) && data["state"]=="open") {
+                        console.log("用户未投票")
+                        console.log(userVoted)
+                        console.log(data)
+                        for (i in data["body"].split("\n")) {
+                            if (i == 0) {
+                                continue
+                            }
+                            let l = data["body"].split("\n")[i].split("|")
+                            if (l[1] != undefined) {
+                                displayChooseA(b64d(l[1]), l[0])
+                            }
+                        }
+                        document.getElementById("ol-choose-list").style = ""
+                        document.getElementById("div-vote-main").innerHTML+=`<button type="submit" class="btn btn-primary">投票</button>`
+                    }else{
+                        console.log("用户已投票 或 投票已截止")
+                        let votes={}
+                        for(i in data["body"].split("\n")){
+                            if (i == 0) {
+                                continue
+                            }
+                            let l = data["body"].split("\n")[i].split("|")
+                            if (l[1] != undefined) {
+                                votes[l[0]] = {"people": 0, "percent": 0, "isuser": false}
+                            }
+                        }
+                        let total_num = 0
+                        for(i in comments){
+                            votes[comments[i]["body"]]["people"] += 1
+                            total_num += 1
+                            if(comments[i]["user"]["login"]==username){
+                                votes[comments[i]["body"]]["isuser"]=true
+                            }
+                        }
+                        for(i in votes){
+                            votes[i]["percent"]=Math.round(100*(votes[i]["people"]/total_num))
+                        }
+                        for(i in data["body"].split("\n")){
+                            if (i == 0) {
+                                continue
+                            }
+                            let l = data["body"].split("\n")[i].split("|")
+                            if (l[1] != undefined) {
+                                displayChooseB(b64d(l[1]),l[0],votes[l[0]]["isuser"],votes[l[0]]["people"],votes[l[0]]["percent"])
+                            }
+                        }
+                    }
                 },
                 error:function (data,status){
                     malert("加载投票选项时发生未知错误","错误")
                 }
             })
-            setTimeout(function(){
-                if((!userVoted) && data["state"]=="open") {
-                    console.log("用户未投票")
-                    console.log(userVoted)
-                    console.log(data)
-                    for (i in data["body"].split("\n")) {
-                        if (i == 0) {
-                            continue
-                        }
-                        let l = data["body"].split("\n")[i].split("|")
-                        if (l[1] != undefined) {
-                            displayChooseA(b64d(l[1]), l[0])
-                        }
-                    }
-                    document.getElementById("ol-choose-list").style = ""
-                    document.getElementById("div-vote-main").innerHTML+=`<button type="submit" class="btn btn-primary">投票</button>`
-                }else{
-                    console.log("用户已投票 或 投票已截止")
-                    let votes={}
-                    for(i in data["body"].split("\n")){
-                        if (i == 0) {
-                            continue
-                        }
-                        let l = data["body"].split("\n")[i].split("|")
-                        if (l[1] != undefined) {
-                            votes[l[0]] = {"people": 0, "percent": 0, "isuser": false}
-                        }
-                    }
-                    let total_num = 0
-                    for(i in comments){
-                        votes[comments[i]["body"]]["people"] += 1
-                        total_num += 1
-                        if(comments[i]["user"]["login"]==username){
-                            votes[comments[i]["body"]]["isuser"]=true
-                        }
-                    }
-                    for(i in votes){
-                        votes[i]["percent"]=Math.round(100*(votes[i]["people"]/total_num))
-                    }
-                    for(i in data["body"].split("\n")){
-                        if (i == 0) {
-                            continue
-                        }
-                        let l = data["body"].split("\n")[i].split("|")
-                        if (l[1] != undefined) {
-                            displayChooseB(b64d(l[1]),l[0],votes[l[0]]["isuser"],votes[l[0]]["people"],votes[l[0]]["percent"])
-                        }
-                    }
-                }
-            },1500)
-
         }catch(e){
             malert("加载投票信息时发生未知错误","错误")
         }},
