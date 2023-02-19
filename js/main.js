@@ -284,7 +284,7 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
     for(i in choose){
         bodystr+=`${choose[i]}\n`
     }
-    alert(bodystr)
+    //alert(bodystr)
     $.ajax({
         headers:{
             accept: 'application/json',
