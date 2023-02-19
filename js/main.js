@@ -37,7 +37,11 @@ document.getElementById("btn-login-with-github").addEventListener("click",functi
     window.location.href=`https://github.com/login/oauth/authorize?client_id=${clientID}&scope=repo`
 })
 document.getElementById("btn-new-vote").addEventListener("click",function(){
-    malert("btn-new-vote")
+    if(accessToken=="") {
+        malert("请先点击右上角登录 GitHub")
+    }else {
+        new mdb.Modal(document.getElementById("window-create-vote")).show()
+    }
 })
 function on_btn_logout(){
     setCookie("accessToken","")
@@ -143,10 +147,10 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
             type:"POST",
             url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
             success:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 (1/3)"
+                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 ."
             },
             error:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有权限创建 label"
+                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有管理员权限"
             }
         })
         $.ajax({
@@ -158,10 +162,10 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
             type:"POST",
             url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
             success:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 (2/3)"
+                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 .."
             },
             error:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有权限创建 label"
+                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有管理员权限"
             }
         })
         $.ajax({
@@ -173,11 +177,11 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
             type:"POST",
             url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
             success:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 (3/3)"
-                setTimeout(function(){location.reload()},1000)
+                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 ..."
+                setTimeout(function(){location.reload()},3000)
             },
             error:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有权限创建 label"
+                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有管理员权限"
             }
         })
     }
@@ -227,3 +231,16 @@ function displayvote(name,body,progress,id,username){
   </div>`
     document.getElementById("div-votes").innerHTML+=htm
 }
+let create_vote_id = 3
+document.getElementById("btn-create-vote-add").addEventListener("click",function (){
+    htm=`
+    <div class="input-group mb-3" id="div-create-vote-${create_vote_id}">
+        <div class="form-outline" style="">
+            <input type="text" class="form-control" id="le-create-vote-${create_vote_id}">
+            <label class="form-label" for="le-create-vote-${create_vote_id}">选项 ${create_vote_id}</label>
+        </div>
+        <button class="btn btn-outline-primary" type="button" id="btn-create-vote-d${create_vote_id}" data-mdb-ripple-color="dark">×</button>
+    </div>`
+    $("div#div-create-vote-list").append(htm)
+    create_vote_id+=1
+})

@@ -38,7 +38,6 @@
       </ul>
     </div>
     <div class="d-flex align-items-center">
-      <div class="dropdown"><button type="button" class="btn btn-primary" id="btn-new-vote">发起新投票</button>&ensp;</div>
       <div class="dropdown">
         <a
           class="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -86,10 +85,10 @@
 <div id="div-votes-tip" class="p-5 text-center bg-light" style="display:none;">
   <h2 class="mb-3">xxtg666-xtGitVote-投票站</h2>
   <h5 class="mb-3">这是一个使用 GitHub Repo 存储数据的投票网站</h5>
-  <h5 class="mb-3">下方的列表是投票列表</h5>
-  <h5 class="mb-3">如果你有管理员权限，可以点击右上角创建投票</h5>
+  <h5 class="mb-3">如果你有管理员权限，可以创建投票</h5>
+  <button type="button" class="btn btn-primary" id="btn-new-vote">创建新投票</button>
 </div>
-<div class="row" id="div-votes" style="display:none;">
+<div class="container"><div class="row" id="div-votes" style="display:none;"></div>
 </div>
 <!-- 提示窗口 -->
 <div class="modal fade" id="window-login-failed" tabindex="-1" data-mdb-keyboard="false" data-mdb-backdrop="static" aria-labelledby="window-login-failed-label" aria-hidden="true">
@@ -101,6 +100,46 @@
       <div class="modal-body">GitHub Token 或者 Code 无效，请尝试重新登录</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="window-login-failed-button">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="window-create-vote" tabindex="-1" data-mdb-keyboard="false" data-mdb-backdrop="static" aria-labelledby="window-create-vote-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="window-create-vote-label">创建新投票</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-outline">
+          <input type="text"class="form-control" id="le-create-vote-title" required="required">
+          <label class="form-label" for="le-create-vote-title">标题</label>
+        </div>
+        <br>
+        <div class="form-outline">
+          <input type="text" class="form-control" id="le-create-vote-info" required="required">
+          <label class="form-label" for="le-create-vote-info">简介</label>
+        </div>
+        <br>
+        <div id="div-create-vote-list">
+          <div class="input-group mb-3" id="div-create-vote-1">
+            <div class="form-outline">
+              <input type="text" class="form-control" id="le-create-vote-1" required="required">
+              <label class="form-label" for="le-create-vote-1">选项 1</label>
+            </div>
+          </div>
+          <div class="input-group mb-3" id="div-create-vote-2">
+            <div class="form-outline">
+              <input type="text" class="form-control" id="le-create-vote-2" required="required">
+              <label class="form-label" for="le-create-vote-2">选项 2</label>
+            </div>
+          </div>
+        </div>
+        <button type="button" id="btn-create-vote-add" class="btn btn-tertiary" data-mdb-ripple-color="light"><i class="fa-solid fa-plus"></i> 添加选项</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="btn-create-vote-cancel">取消</button>
+        <button type="button" class="btn btn-primary" id="btn-create-vote-submit">创建</button>
       </div>
     </div>
   </div>
