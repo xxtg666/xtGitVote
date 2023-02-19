@@ -290,11 +290,12 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
             accept: 'application/json',
             Authorization: `Bearer ${accessToken}`
         },
-        data:`{114514}`,
+        data:`{"title":"${title}","body":"${bodystr}","labels":["xtGitVote","xtGitVoteActive"]}`,
         type:"POST",
         url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues`,
         success:function(data,status){
-
+            document.getElementById("btn-create-vote-submit").innerHTML="发起投票成功"
+            setTimeout(function(){location.reload()},2000)
         },
         error:function(data,status){
             document.getElementById("btn-create-vote-submit").innerHTML="错误：你没有权限发起投票"
