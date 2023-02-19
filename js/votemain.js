@@ -67,12 +67,13 @@ $.ajax({
 })
 }
 
+let vchoose = getQueryVariable("voteChoose")
 let code = getQueryVariable("id")
 if (code != false){
     $.ajax({
         url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}`,
         type:"GET",
-        success:function(data,status){
+        success:function(data,status){try{
             document.getElementById("h-vote-title").innerHTML=data["title"]
             if(data["state"]=="open"){
                 document.getElementById("h-vote-title").innerHTML+='&ensp;<span class="badge rounded-pill badge-success">进行中</span>'
@@ -81,12 +82,67 @@ if (code != false){
             }
             document.getElementById("h-vote-body").innerHTML=b64d(data["body"].split("\n")[0])
             document.getElementById("div-vote-tb").style=""
-        },
+            let userVoted = false;
+            if(!userVoted && data["state"]=="open") {
+                for (i in data["body"].split("\n")) {
+                    if (i == 0) {
+                        continue
+                    }
+                    let l = data["body"].split("\n")[i].split("|")
+                    if (l[1] != undefined) {
+                        displayChooseA(b64d(l[1]), l[0])
+                    }
+                }
+                document.getElementById("ol-choose-list").style = ""
+                document.getElementById("div-vote-main").innerHTML+=`<button type="submit" class="btn btn-primary">投票</button>`
+            }else{
+
+            }
+        }catch(e){
+            malert("加载投票信息时发生未知错误","错误")
+        }},
         error:function(data,status){
             document.getElementById("div-notfound-id").style=""
         }
     })
 }
 else{
-    document.getElementById("div-notfound-id").style=""
+    if(vchoose==false) {
+        document.getElementById("div-notfound-id").style = ""
+    }
+}
+
+function displayChooseA(title,number){
+    htm=`<li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">
+      <div class="form-check">
+  <input class="form-check-input" type="radio" name="voteChoose" value="${code}-${number}" required/>
+  <label class="form-check-label" for="ra-choose-${number}">${title}</label>
+</div>
+</div>
+    </div>
+    </li>`
+    document.getElementById("ol-choose-list").innerHTML+=htm
+}
+
+if (vchoose != false){
+    let c = vchoose.split("-")[0]
+    let v = vchoose.split("-")[1]
+    $.ajax({
+        headers:{
+            accept: 'application/json',
+            Authorization: `Bearer ${accessToken}`
+        },
+        url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${c}/comments`,
+        type:"POST",
+        data:`{"body":"${v}"}`,
+        success:function(data,status){
+            location.href=`${siteURL}/vote.html?id=${c}`
+        },
+        error:function(data,status){
+            malert("投票失败","错误")
+            setTimeout(function (){location.href=`${siteURL}/vote.html?id=${c}`},3000)
+        }
+    })
 }

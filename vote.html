@@ -76,11 +76,15 @@
   <h2 class="mb-3">参数错误</h2>
   <h5 class="mb-3">无效的 issue id</h5>
 </div>
-<!-- 页面头 -->
+<!-- 投票标题/简介 -->
 <div id="div-vote-tb" class="p-5 text-center bg-light" style="display:none;">
   <h2 class="mb-3" id="h-vote-title"></h2>
   <h5 class="mb-3" id="h-vote-body"></h5>
 </div>
+<!-- 投票数据 -->
+<div class="container"><form id="div-vote-main">
+<ol class="list-group list-group-light list-group-numbered" id="ol-choose-list" style="adisplay:none"></ol>
+</form></div>
 <!-- 弹窗 -->
 <div class="modal fade" id="window-login-failed" tabindex="-1" data-mdb-keyboard="false" data-mdb-backdrop="static" aria-labelledby="window-login-failed-label" aria-hidden="true">
   <div class="modal-dialog">
@@ -109,8 +113,8 @@
   </div>
 </div>
 <!-- js -->
-    <script type="text/javascript" src="js/config.js"></script>
-    <script type="text/javascript" src="js/votemain.js"></script>
-    <script type="text/javascript" src="js/mdb.min.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/votemain.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
 </body>
 </html>
