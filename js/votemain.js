@@ -9,7 +9,9 @@ function on_btn_logout(){
     location.reload()
 }
 document.getElementById("window-login-failed-button").addEventListener("click",on_btn_logout)
-
+document.getElementById("btn-login-with-github").addEventListener("click",function(){
+    window.location.href=`https://github.com/login/oauth/authorize?client_id=${clientID}&scope=repo`
+})
 let accessToken = getCookie("accessToken")
 let username = ""
 if(accessToken!=""){
