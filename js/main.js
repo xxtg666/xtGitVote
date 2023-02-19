@@ -119,10 +119,10 @@ $.ajax({
                     document.getElementById("div-votes-tip").style=""
                     for(d in data){
                         // data[d]
+                        let a = data[d]
+                        let b = b64d(a["body"].split("\n")[0])
+                        displayvote(a["title"],b,a["state"],a["number"],a["user"]["login"])
                     }
-                    displayvote("title1","body1",true,1,"user1")
-                    displayvote("title2","body2",false,2,"user2")
-                    displayvote("title3","body3",true,3,"user1")
                 },
                 error:function(data,status){
                     malert("加载投票列表时发生错误")
@@ -153,38 +153,9 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
             type:"POST",
             url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
             success:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 ."
-            },
-            error:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有管理员权限"
-            }
-        })
-        $.ajax({
-            headers:{
-                accept: 'application/json',
-                Authorization: `Bearer ${accessToken}`
-            },
-            data:`{"name":"xtGitVoteActive","description":"xtGitVote Data Storage. DO NOT DELETE THIS","color":"d6f0e0"}`,
-            type:"POST",
-            url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
-            success:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 .."
-            },
-            error:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="× 错误：你没有管理员权限"
-            }
-        })
-        $.ajax({
-            headers:{
-                accept: 'application/json',
-                Authorization: `Bearer ${accessToken}`
-            },
-            data:`{"name":"xtGitVoteEnded","description":"xtGitVote Data Storage. DO NOT DELETE THIS","color":"f9e1e5"}`,
-            type:"POST",
-            url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
-            success:function(data,status){
-                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成 ..."
-                setTimeout(function(){location.reload()},3000)
+                document.getElementById("btn-init-repo").innerHTML="√ 初始化完成"
+                document.getElementById("btn-init-repo").disabled="disabled"
+                setTimeout(function(){location.reload()},2000)
             },
             error:function(data,status){
                 document.getElementById("btn-init-repo").innerHTML="× 错误：你没有管理员权限"
@@ -193,10 +164,10 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
     }
 })
 
-function displayvote(name,body,progress,id,username){
+function displayvote(name,body,state,id,username){
     let pt=""
     let pc=""
-    if(progress == true){
+    if(state == "open"){
         pt="进行中"
         pc="badge-success"
     }
@@ -290,16 +261,19 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
             accept: 'application/json',
             Authorization: `Bearer ${accessToken}`
         },
-        data:`{"title":"${title}","body":"${bodystr.replaceAll("\n","\\n")}","labels":["xtGitVote","xtGitVoteActive"]}`,
+        data:`{"title":"${title}","body":"${bodystr.replaceAll("\n","\\n")}","labels":["xtGitVote"]}`,
         type:"POST",
         url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues`,
         success:function(data,status){
             document.getElementById("btn-create-vote-submit").innerHTML="发起投票成功"
+            document.getElementById("btn-create-vote-submit").disabled="disabled"
             setTimeout(function(){location.reload()},2000)
         },
         error:function(data,status){
-            document.getElementById("btn-create-vote-submit").innerHTML="错误：你没有权限发起投票"
+            document.getElementById("btn-create-vote-submit").innerHTML="你没有权限发起投票"
             document.getElementById("btn-create-vote-submit").disabled="disabled"
+            document.getElementById("btn-new-vote").innerHTML="你没有权限发起投票"
+            document.getElementById("btn-new-vote").disabled="disabled"
         }
     })
 })
