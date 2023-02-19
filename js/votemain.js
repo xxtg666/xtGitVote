@@ -182,10 +182,6 @@ function displayChooseA(title,number){
 if (vchoose != false){
     let c = vchoose.split("-")[0]
     let v = vchoose.split("-")[1]
-    if(accessToken==""){
-        malert("投票失败，请先点击右上角登录 GitHub","错误")
-        setTimeout(function (){location.href=`${siteURL}/vote.html?id=${c}`},2000)
-    }
     $.ajax({
         headers:{
             accept: 'application/json',
@@ -198,8 +194,15 @@ if (vchoose != false){
             location.href=`${siteURL}/vote.html?id=${c}`
         },
         error:function(data,status){
-            malert("投票失败","错误")
-            setTimeout(function (){location.href=`${siteURL}/vote.html?id=${c}`},2000)
+            if(accessToken==""){
+                malert("投票失败，请先点击右上角登录 GitHub","错误")
+                setTimeout(function (){location.href=`${siteURL}/vote.html?id=${c}`},2000)
+            }else {
+                malert("投票失败", "错误")
+                setTimeout(function () {
+                    location.href = `${siteURL}/vote.html?id=${c}`
+                }, 2000)
+            }
         }
     })
 }
