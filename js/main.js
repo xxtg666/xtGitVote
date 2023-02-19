@@ -4,41 +4,7 @@ function malert(body,title="提示信息",button="确认"){
     document.getElementById("window-js-button").innerHTML=button
     new mdb.Modal(document.getElementById("window-js")).show()
 }
-function b64e(str){
-    return btoa(encodeURI(str))
-}
-function b64d(str){
-    return decodeURI(atob(str))
-}
-function getQueryVariable(variable)
-{
-    var query = window.location.search.substring(1);
-    return _getQueryVariable(query,variable)
-}
-function _getQueryVariable(query,variable)
-{
-    var vars = query.split("&");
-    for (var i=0;i<vars.length;i++) {
-        var pair = vars[i].split("=");
-        if(pair[0] == variable){return pair[1];}
-    }
-    return false;
-}
-function setCookie(cname,cvalue)
-{
-  document.cookie = cname + "=" + cvalue + "; ";
-}
-function getCookie(cname)
-{
-  var name = cname + "=";
-  var ca = document.cookie.split(';');
-  for(var i=0; i<ca.length; i++)
-  {
-    var c = ca[i].trim();
-    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
-  }
-  return "";
-}
+
 document.getElementById("btn-login-with-github").addEventListener("click",function(){
     window.location.href=`https://github.com/login/oauth/authorize?client_id=${clientID}&scope=repo`
 })
@@ -81,7 +47,7 @@ $.ajax({
     type:"GET",
     url:"https://ac.xxtg666.top/https://api.github.com/user",
     success:function(data,status){
-        let username = data.name
+        let username = data["login"]
         if(username==null||username==undefined){new mdb.Modal(document.getElementById("window-login-failed")).show();return}
         let useravatar = data.avatar_url
         document.getElementById("img-github-avatar").src=useravatar
@@ -97,6 +63,7 @@ $.ajax({
 $.ajax({
     headers:{
         accept: 'application/json',
+        Authorization: `token ${accessToken}`
     },
     type:"GET",
     url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
@@ -112,6 +79,7 @@ $.ajax({
             $.ajax({
                 headers: {
                     accept: 'application/json',
+                    Authorization: `token ${accessToken}`
                 },
                 type: "GET",
                 url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues?state=all&labels=xtGitVote`,
@@ -182,8 +150,8 @@ function displayvote(name,body,state,id,username){
         <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
             <div class="ms-3">
-              <p class="fw-bold mb-1">${name}</p>
-              <p class="text-muted mb-0">${body}</p>
+              <p class="fw-bold mb-1">${cvt(name)}</p>
+              <p class="text-muted mb-0">${cvt(body)}</p>
             </div>
           </div>
           <span class="badge rounded-pill ${pc}">${pt}</span>
@@ -202,7 +170,7 @@ function displayvote(name,body,state,id,username){
           class="btn btn-link m-0 text-reset"
           role="button"
           data-ripple-color="primary"
-          ><i class="fa-solid fa-user"></i> ${username}</i
+          ><i class="fa-solid fa-user"></i> ${cvt(username)}</i
         ></a>
       </div>
     </div>
@@ -223,21 +191,18 @@ document.getElementById("btn-create-vote-add").addEventListener("click",function
     create_vote_id+=1
 })
 
-/*function mpopover(id,title,body){
-    elem=document.getElementById(id)
-    elem.title=title
-    elem.setAttribute("data-mdb-content",body)
-    new mdb.Popover(elem,{}).show()
-}*/
 document.getElementById("btn-create-vote-submit").addEventListener("click",function (){
+    document.getElementById("btn-create-vote-submit").disabled="disabled"
     let title = document.getElementById("le-create-vote-title").value
     if(title=="" || title==undefined){
-        malert("标题不能为空","错误")
+        document.getElementById("btn-create-vote-submit").innerHTML="创建 | 错误：标题不能为空"
+        document.getElementById("btn-create-vote-submit").disabled=""
         return
     }
     let info = document.getElementById("le-create-vote-info").value
     if(info=="" || info==undefined){
-        malert("简介不能为空","错误")
+        document.getElementById("btn-create-vote-submit").innerHTML="创建 | 简介：标题不能为空"
+        document.getElementById("btn-create-vote-submit").disabled=""
         return
     }
     info = b64e(info)
@@ -246,7 +211,8 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
     while(votenum<create_vote_id){
         let cho = document.getElementById(`le-create-vote-${votenum}`).value
         if(cho=="" || cho==undefined){
-            malert(`选项${votenum}不能为空`,"错误")
+            document.getElementById("btn-create-vote-submit").innerHTML=`创建 | 错误：选项${votenum}不能为空`
+            document.getElementById("btn-create-vote-submit").disabled=""
             return
         }
         choose.push(votenum+"|"+b64e(cho))
@@ -268,7 +234,6 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
         url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues`,
         success:function(data,status){
             document.getElementById("btn-create-vote-submit").innerHTML="发起投票成功"
-            document.getElementById("btn-create-vote-submit").disabled="disabled"
             setTimeout(function(){location.reload()},2000)
         },
         error:function(data,status){
