@@ -36,3 +36,10 @@ function getCookie(cname)
 function cvt(str){ // ConvertText
     return str.replaceAll("<","&lt;").replaceAll(">","&gt;")
 }
+function getheader(){
+    if(accessToken==""){
+        return {}
+    }else{
+        return {Authorization: `Bearer ${accessToken}`}
+    }
+}

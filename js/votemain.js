@@ -39,9 +39,7 @@ let vchoose = getQueryVariable("voteChoose")
 let code = getQueryVariable("id")
 if (code != false){
     $.ajax({
-        headers:{
-            Authorization: `token ${accessToken}`
-        },
+        headers:getheader(),
         url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}`,
         type:"GET",
         success:function(data,status){try{
@@ -56,9 +54,7 @@ if (code != false){
             $.ajax({
                 url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}/comments`,
                 type:"GET",
-                headers:{
-                    Authorization: `token ${accessToken}`
-                },
+                headers:getheader(),
                 success:function(idata,status){
                     for(i in idata){
                         if(idata[i]["user"]["login"]==username){

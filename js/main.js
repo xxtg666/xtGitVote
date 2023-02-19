@@ -61,10 +61,7 @@ $.ajax({
 }
 
 $.ajax({
-    headers:{
-        accept: 'application/json',
-        Authorization: `token ${accessToken}`
-    },
+    headers:getheader(),
     type:"GET",
     url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
     success:function(data,status){
@@ -77,10 +74,7 @@ $.ajax({
         }
         if(havelabel){
             $.ajax({
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `token ${accessToken}`
-                },
+                headers: getheader(),
                 type: "GET",
                 url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues?state=all&labels=xtGitVote`,
                 success:function(data,status){
