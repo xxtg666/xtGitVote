@@ -195,7 +195,7 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
     }
     let info = document.getElementById("le-create-vote-info").value
     if(info=="" || info==undefined){
-        document.getElementById("btn-create-vote-submit").innerHTML="创建 | 简介：标题不能为空"
+        document.getElementById("btn-create-vote-submit").innerHTML="创建 | 错误：简介不能为空"
         document.getElementById("btn-create-vote-submit").disabled=""
         return
     }
