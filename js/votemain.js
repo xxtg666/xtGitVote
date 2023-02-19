@@ -102,6 +102,8 @@ if (code != false){
             })
             if((!userVoted) && data["state"]=="open") {
                 console.log("用户未投票")
+                console.log(userVoted)
+                console.log(data)
                 for (i in data["body"].split("\n")) {
                     if (i == 0) {
                         continue
