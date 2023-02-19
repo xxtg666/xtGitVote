@@ -100,7 +100,8 @@ if (code != false){
                     malert("加载投票选项时发生未知错误","错误")
                 }
             })
-            if(!userVoted && data["state"]=="open") {
+            if((!userVoted) && data["state"]=="open") {
+                console.log("用户未投票")
                 for (i in data["body"].split("\n")) {
                     if (i == 0) {
                         continue
@@ -113,6 +114,7 @@ if (code != false){
                 document.getElementById("ol-choose-list").style = ""
                 document.getElementById("div-vote-main").innerHTML+=`<button type="submit" class="btn btn-primary">投票</button>`
             }else{
+                console.log("用户已投票 或 投票已截止")
                 let votes={}
                 for(i in data["body"].split("\n")){
                     if (i == 0) {
