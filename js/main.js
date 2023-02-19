@@ -4,6 +4,12 @@ function malert(body,title="提示信息",button="确认"){
     document.getElementById("window-js-button").innerHTML=button
     new mdb.Modal(document.getElementById("window-js")).show()
 }
+function b64e(str){
+    return btoa(encodeURI(str))
+}
+function b64d(str){
+    return decodeURI(atob(str))
+}
 function getQueryVariable(variable)
 {
     var query = window.location.search.substring(1);
@@ -239,8 +245,44 @@ document.getElementById("btn-create-vote-add").addEventListener("click",function
             <input type="text" class="form-control" id="le-create-vote-${create_vote_id}">
             <label class="form-label" for="le-create-vote-${create_vote_id}">选项 ${create_vote_id}</label>
         </div>
-        <button class="btn btn-outline-primary" type="button" id="btn-create-vote-d${create_vote_id}" data-mdb-ripple-color="dark">×</button>
+        <!--<button class="btn btn-outline-primary" type="button" id="btn-create-vote-d${create_vote_id}" data-mdb-ripple-color="dark">×</button>-->
     </div>`
     $("div#div-create-vote-list").append(htm)
     create_vote_id+=1
+})
+
+/*function mpopover(id,title,body){
+    elem=document.getElementById(id)
+    elem.title=title
+    elem.setAttribute("data-mdb-content",body)
+    new mdb.Popover(elem,{}).show()
+}*/
+document.getElementById("btn-create-vote-submit").addEventListener("click",function (){
+    let title = document.getElementById("le-create-vote-title").value
+    if(title=="" || title==undefined){
+        malert("标题不能为空","错误")
+        return
+    }
+    let info = document.getElementById("le-create-vote-info").value
+    if(info=="" || info==undefined){
+        malert("简介不能为空","错误")
+        return
+    }
+    info = b64e(info)
+    let choose = []
+    let votenum = 1
+    while(votenum<create_vote_id){
+        let cho = document.getElementById(`le-create-vote-${votenum}`).value
+        if(cho=="" || cho==undefined){
+            malert(`选项${votenum}不能为空`,"错误")
+            return
+        }
+        choose.push(votenum+"|"+b64e(cho))
+        votenum+=1
+    }
+    let bodystr = `${info}\n`
+    for(i in choose){
+        bodystr+=`${choose[i]}\n`
+    }
+    alert(bodystr)
 })
