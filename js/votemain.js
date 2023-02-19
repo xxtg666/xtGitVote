@@ -46,6 +46,7 @@ function on_btn_logout(){
 document.getElementById("window-login-failed-button").addEventListener("click",on_btn_logout)
 
 let accessToken = getCookie("accessToken")
+let username = ""
 if(accessToken!=""){
 $.ajax({
     headers:{
@@ -55,7 +56,7 @@ $.ajax({
     type:"GET",
     url:"https://ac.xxtg666.top/https://api.github.com/user",
     success:function(data,status){
-        let username = data.name
+        username = data.name
         let useravatar = data.avatar_url
         document.getElementById("img-github-avatar").src=useravatar
         document.getElementById("ul-github-menu").innerHTML=`<li><a class="dropdown-item" href="#" id="btn-username">${username}</a></li><li><a class="dropdown-item" href="#" id="btn-logout">退出登录</a></li>`
@@ -67,6 +68,8 @@ $.ajax({
 })
 }
 
+let userVoted = false;
+let comments = [];
 let vchoose = getQueryVariable("voteChoose")
 let code = getQueryVariable("id")
 if (code != false){
@@ -82,7 +85,21 @@ if (code != false){
             }
             document.getElementById("h-vote-body").innerHTML=b64d(data["body"].split("\n")[0])
             document.getElementById("div-vote-tb").style=""
-            let userVoted = false;
+            $.ajax({
+                url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}/comments`,
+                type:"GET",
+                success:function(data,status){
+                    for(i in data){
+                        if(data[i]["user"]["login"]==username){
+                            userVoted=true
+                        }
+                    }
+                    comments=data
+                },
+                error:function (data,status){
+                    malert("加载投票选项时发生未知错误","错误")
+                }
+            })
             if(!userVoted && data["state"]=="open") {
                 for (i in data["body"].split("\n")) {
                     if (i == 0) {
@@ -96,7 +113,36 @@ if (code != false){
                 document.getElementById("ol-choose-list").style = ""
                 document.getElementById("div-vote-main").innerHTML+=`<button type="submit" class="btn btn-primary">投票</button>`
             }else{
-
+                let votes={}
+                for(i in data["body"].split("\n")){
+                    if (i == 0) {
+                        continue
+                    }
+                    let l = data["body"].split("\n")[i].split("|")
+                    if (l[1] != undefined) {
+                        votes[l[0]] = {"people": 0, "percent": 0, "isuser": false}
+                    }
+                }
+                let total_num = 0
+                for(i in comments){
+                    votes[comments[i]["body"]]["people"] += 1
+                    total_num += 1
+                    if(comments[i]["user"]["login"]==username){
+                        votes[comments[i]["body"]]["isuser"]=true
+                    }
+                }
+                for(i in votes){
+                    votes[i]["percent"]=toInt(100*(votes[i]["people"]/total_num))
+                }
+                for(i in data["body"].split("\n")){
+                    if (i == 0) {
+                        continue
+                    }
+                    let l = data["body"].split("\n")[i].split("|")
+                    if (l[1] != undefined) {
+                        displayChooseB(l[1],l[0],votes[l[0]]["isuser"],votes[l[0]]["people"],votes[l[0]]["percent"])
+                    }
+                }
             }
         }catch(e){
             malert("加载投票信息时发生未知错误","错误")
@@ -145,4 +191,18 @@ if (vchoose != false){
             setTimeout(function (){location.href=`${siteURL}/vote.html?id=${c}`},3000)
         }
     })
+}
+
+function displayChooseB(title,number,isuser,people,percent){
+    let u='&ensp;<span class="badge badge-success rounded-pill">我投票的</span>'
+    if(isuser==true){u=""}
+    htm=`<li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">${title}&ensp;<span class="badge badge-primary rounded-pill">${people}人</span>${u}</div>
+      <div class="progress" style="height: 20px;">
+    <div class="progress-bar" role="progressbar" style="width: ${percent}%;" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100">${percent}%</div>
+    </div>
+    </div>
+  </li>`
+    document.getElementById("ol-choose-list").innerHTML += htm
 }

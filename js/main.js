@@ -255,6 +255,7 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
     for(i in choose){
         bodystr+=`${choose[i]}\n`
     }
+    bodystr+=`**请前往 [这里](${siteURL}) 参加本次投票，请勿手动在此条 issue 下进行 Comment**`
     //alert(bodystr)
     $.ajax({
         headers:{
