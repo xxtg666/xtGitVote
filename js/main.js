@@ -290,7 +290,7 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
             accept: 'application/json',
             Authorization: `Bearer ${accessToken}`
         },
-        data:`{"title":"${title}","body":"${bodystr}","labels":["xtGitVote","xtGitVoteActive"]}`,
+        data:`{"title":"${title}","body":"${bodystr.replaceAll("\n","\\n")}","labels":["xtGitVote","xtGitVoteActive"]}`,
         type:"POST",
         url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues`,
         success:function(data,status){
