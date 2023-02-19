@@ -3,8 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>xtGitVote</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <link rel="stylesheet" href="css/mdb.min.css" />
+    <script src="js/jquery-3.6.3.min.js"></script>
 </head>
 <body>
+<!-- 导航栏 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <span>xtGitVote</span>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <span class="nav-link"><a href=".">返回主页</a></span>
+        </li>
+      </ul>
+    </div>
+    <div class="d-flex align-items-center">
+      <div class="dropdown">
+        <a
+          class="dropdown-toggle d-flex align-items-center hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuAvatar"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img
+            src="https://github.githubassets.com/favicons/favicon.svg"
+            class="rounded-circle"
+            height="25"
+            alt="Github Avatar"
+            loading="lazy"
+            id="img-github-avatar"
+          />
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuAvatar"
+          id="ul-github-menu"
+        >
+          <li>
+            <a class="dropdown-item" href="#" id="btn-login-with-github">使用 GitHub 登录</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- id 无效 -->
+<div id="div-notfound-id" class="p-5 text-center bg-light" style="display:none;">
+  <h2 class="mb-3">参数错误</h2>
+  <h5 class="mb-3">无效的 issue id</h5>
+</div>
+<!-- 弹窗 -->
+<div class="modal fade" id="window-login-failed" tabindex="-1" data-mdb-keyboard="false" data-mdb-backdrop="static" aria-labelledby="window-login-failed-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="window-login-failed-label">GitHub 登录失败</h5>
+      </div>
+      <div class="modal-body">GitHub Token 或者 Code 无效，请尝试重新登录</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="window-login-failed-button">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="window-js" tabindex="-1" data-mdb-keyboard="false" data-mdb-backdrop="static" aria-labelledby="window-js-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="window-js-label"></h5>
+      </div>
+      <div class="modal-body" id="window-js-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="window-js-button"></button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- js -->
     <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/votemain.js"></script>
