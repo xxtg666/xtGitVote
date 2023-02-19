@@ -145,7 +145,7 @@ if (code != false){
                         }
                         let l = data["body"].split("\n")[i].split("|")
                         if (l[1] != undefined) {
-                            displayChooseB(l[1],l[0],votes[l[0]]["isuser"],votes[l[0]]["people"],votes[l[0]]["percent"])
+                            displayChooseB(b64d(l[1]),l[0],votes[l[0]]["isuser"],votes[l[0]]["people"],votes[l[0]]["percent"])
                         }
                     }
                 }
@@ -202,7 +202,7 @@ if (vchoose != false){
 
 function displayChooseB(title,number,isuser,people,percent){
     let u='&ensp;<span class="badge badge-success rounded-pill">我投票的</span>'
-    if(isuser==true){u=""}
+    if(isuser!=true){u=""}
     htm=`<li class="list-group-item d-flex justify-content-between align-items-start">
     <div class="ms-2 me-auto">
       <div class="fw-bold">${title}&ensp;<span class="badge badge-primary rounded-pill">${people}人</span>${u}</div>
