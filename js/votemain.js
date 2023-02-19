@@ -137,7 +137,7 @@ if (code != false){
                         }
                     }
                     for(i in votes){
-                        votes[i]["percent"]=toInt(100*(votes[i]["people"]/total_num))
+                        votes[i]["percent"]=Math.round(100*(votes[i]["people"]/total_num))
                     }
                     for(i in data["body"].split("\n")){
                         if (i == 0) {
