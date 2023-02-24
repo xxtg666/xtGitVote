@@ -78,6 +78,7 @@ if (code != false){
                         document.getElementById("div-vote-main").innerHTML+=`<button type="submit" class="btn btn-primary">投票</button>`
                     }else{
                         let votes={}
+                        let users = []
                         for(i in data["body"].split("\n")){
                             if (i == 0) {
                                 continue
@@ -89,11 +90,13 @@ if (code != false){
                         }
                         let total_num = 0
                         for(i in comments){
+                            if(!comments[i]["user"]["login"] in users){
                             votes[comments[i]["body"]]["people"] += 1
+                            users.push(comments[i]["user"]["login"])
                             total_num += 1
                             if(comments[i]["user"]["login"]==username){
                                 votes[comments[i]["body"]]["isuser"]=true
-                            }
+                            }}
                         }
                         for(i in votes){
                             votes[i]["percent"]=Math.round(100*(votes[i]["people"]/total_num))
@@ -155,7 +158,7 @@ if (vchoose != false){
         success:function(data,status){
             malert("投票成功，已选择："+v, "完成")
             setTimeout(function () {
-                location.href = `${siteURL}`
+                location.href = `${siteURL}/vote.html?id=${c}`
             }, 2000)
         },
         error:function(data,status){
