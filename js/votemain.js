@@ -10,7 +10,8 @@ function on_btn_logout(){
 }
 document.getElementById("window-login-failed-button").addEventListener("click",on_btn_logout)
 document.getElementById("btn-login-with-github").addEventListener("click",function(){
-    window.location.href=`https://github.com/login/oauth/authorize?client_id=${clientID}&scope=repo`
+    let aurl = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=repo`
+    malert(POLICY,"用户协议 与 免责声明",`<a href="${aurl}">我已阅读并同意《用户协议与免责声明》，继续登录</a>`)
 })
 let accessToken = getCookie("accessToken")
 let username = ""
