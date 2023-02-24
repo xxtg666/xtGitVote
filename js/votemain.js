@@ -91,7 +91,7 @@ if (code != false){
                         }
                         let total_num = 0
                         for(i in comments){
-                            if(!comments[i]["user"]["login"] in users){
+                            if(!(comments[i]["user"]["login"] in users)){
                             votes[comments[i]["body"]]["people"] += 1
                             users.push(comments[i]["user"]["login"])
                             total_num += 1
