@@ -24,7 +24,7 @@ document.getElementById("window-login-failed-button").addEventListener("click",o
 let code = getQueryVariable("code")
 if (code != false){
     $.ajax({
-        url:`https://ac.xxtg666.top/https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${code}`,
+        url:getGitHubLoginURL(code),
         type:"GET",
         success:function(data,status){
             let accessToken = _getQueryVariable(data,"access_token")

@@ -43,3 +43,11 @@ function getheader(){
         return {Authorization: `Bearer ${accessToken}`}
     }
 }
+function getGitHubLoginURL(c){
+    if(clientSecret==""){ // 仅xtGitVote官网可使用，私人搭建请在config.js填写clientSecret
+        return `https://xtgv-api.xxtg666.top/githublogin/${c}`
+    }
+    else{
+        return `https://ac.xxtg666.top/https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${c}`
+    }
+}
