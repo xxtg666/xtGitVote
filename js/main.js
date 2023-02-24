@@ -29,6 +29,7 @@ if (code != false){
         success:function(data,status){
             let accessToken = _getQueryVariable(data,"access_token")
             setCookie("accessToken",accessToken)
+            alert("[DEBUG]\n"+data+"\n"+code)
             window.location.href = siteURL
         },
         error:function(data,status){
