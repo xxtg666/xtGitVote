@@ -265,7 +265,7 @@ document.getElementById("btn-vote-delete").addEventListener("click",function (){
 document.getElementById("btn-vote-hide").addEventListener("click",function (){
     mconfirm("确认<strong>隐藏</strong>这个投票？","",function (){
         $.ajax({
-          url: `https://ac.xxtg666.tophttps://api.github.com/repos/${dataRepo}/issues/${code}/labels/xtGitVote`,
+          url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}/labels/xtGitVote`,
           type: 'DELETE',
           headers: {
             'Authorization': `Bearer ${accessToken}`
