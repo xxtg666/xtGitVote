@@ -237,7 +237,6 @@ document.getElementById("btn-vote-finish").addEventListener("click",function (){
                         }, 2000)
                     }
                 });
-
             },
             error:function(data,status){
                 malert("结束投票失败", "错误")
@@ -251,6 +250,24 @@ document.getElementById("btn-vote-finish").addEventListener("click",function (){
 })
 document.getElementById("btn-vote-delete").addEventListener("click",function (){
     mconfirm("确认<strong>删除</strong>这个投票？（不可恢复！）","",function (){
-        alert("删除")
+        $.ajax({
+          url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}`,
+          type: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          },
+          success: function(data,status){
+                malert("删除投票成功", "完成")
+                setTimeout(function () {
+                    location.href = `${siteURL}`
+                }, 2000)
+          },
+          error: function(data,status){
+                malert("删除投票失败", "错误")
+                setTimeout(function () {
+                    location.href = `${siteURL}`
+                }, 2000)
+            }
+        });
     })
 })
