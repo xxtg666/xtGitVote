@@ -3,9 +3,9 @@ let blacklist = []
 let whitelist = []
 function allowUser(user){
     if(ban_mode=="blacklist"){
-        return !(user in blacklist)
+        return !(blacklist.indexOf(user)!=-1)
     }else{
-        return (user in whitelist)
+        return (whitelist.indexOf(user)!=-1)
     }
 }
 function notAllowUser(user){
