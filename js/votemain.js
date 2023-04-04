@@ -4,6 +4,17 @@ function malert(body,title="提示信息",button="确认"){
     document.getElementById("window-js-button").innerHTML=button
     new mdb.Modal(document.getElementById("window-js")).show()
 }
+let last_confirm_func = function(){}
+function mconfirm(body,title="提示信息",func=function(){},ok="确认",cancel="取消"){
+    document.getElementById("window-js-confirm-ok").removeEventListener("click",last_confirm_func)
+    last_confirm_func = func
+    document.getElementById("window-js-confirm-label").innerHTML=title
+    document.getElementById("window-js-confirm-body").innerHTML=body
+    document.getElementById("window-js-confirm-ok").innerHTML=ok
+    document.getElementById("window-js-confirm-cancel").innerHTML=cancel
+    document.getElementById("window-js-confirm-ok").addEventListener("click",last_confirm_func)
+    new mdb.Modal(document.getElementById("window-js-confirm")).show()
+}
 function on_btn_logout(){
     setCookie("accessToken","")
     location.reload()
@@ -115,6 +126,7 @@ if (code != false){
                             }
                         }
                     }
+                    document.getElementById("ac-vote").style=""
                 },
                 error:function (data,status){
                     malert("加载投票选项时发生未知错误","错误")
@@ -192,3 +204,53 @@ function displayChooseB(title,number,isuser,people,percent){
   </li>`
     document.getElementById("ol-choose-list").innerHTML += htm
 }
+document.getElementById("btn-vote-finish").addEventListener("click",function (){
+    mconfirm("确认<strong>结束</strong>这个投票？","",function (){
+        $.ajax({
+            headers:{
+                accept: 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            },
+            url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}/lock`,
+            type:"PUT",
+            data:`{"lock_reason":"resolved"}`,
+            success:function(data,status){
+                $.ajax({
+                  url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}`,
+                  type: 'PATCH',
+                  headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                  },
+                  data: JSON.stringify({
+                    state: 'closed'
+                  }),
+                  success: function(data) {
+                    malert("投票已结束","完成")
+                    setTimeout(function () {
+                        location.href = `${siteURL}`
+                    }, 2000)
+                  },
+                  error:function(data,status){
+                        malert("结束投票失败", "错误")
+                        setTimeout(function () {
+                            location.href = `${siteURL}`
+                        }, 2000)
+                    }
+                });
+
+            },
+            error:function(data,status){
+                malert("结束投票失败", "错误")
+                setTimeout(function () {
+                    location.href = `${siteURL}`
+                }, 2000)
+            }
+        })
+
+    })
+})
+document.getElementById("btn-vote-delete").addEventListener("click",function (){
+    mconfirm("确认<strong>删除</strong>这个投票？（不可恢复！）","",function (){
+        alert("删除")
+    })
+})

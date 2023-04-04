@@ -83,16 +83,16 @@
   <h2 class="mb-3" id="h-vote-title"></h2>
   <h5 class="mb-3" id="h-vote-body"></h5>
 </div>
-<div class="container"><table border="0" style="width:100%"><tr>
+<div class="container" id="div-ct-vote-main"><table border="0" style="width:100%"><tr>
 <!-- 投票数据 -->
 <td style="width:75%;">
 <form id="div-vote-main">
-<ol class="list-group list-group-light list-group-numbered" id="ol-choose-list" style="adisplay:none"></ol>
+<ol class="list-group list-group-light list-group-numbered" id="ol-choose-list"></ol>
 </form>
 </td>
 <!-- 管理设置 -->
 <td style="width:25%;">
-<div class="accordion" id="ac-vote">
+<div class="accordion" id="ac-vote" style="display:none">
   <div class="accordion-item">
     <h2 class="accordion-header" id="ac-vote-info-head">
       <button class="accordion-button" type="button" data-mdb-toggle="collapse"
@@ -127,12 +127,15 @@
     </h2>
     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="ac-vote-man-head">
       <div class="accordion-body">
-        <strong>This is the second item's accordion body.</strong> It is hidden by default,
-        until the collapse plugin adds the appropriate classes that we use to style each
-        element. These classes control the overall appearance, as well as the showing and
-        hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-        our default variables. It's also worth noting that just about any HTML can go within
-        the <code>.accordion-body</code>, though the transition does limit overflow.
+        <div class="d-grid gap-2 col-8 mx-auto">
+          <button class="btn btn-warning" type="button" id="btn-vote-finish">结束投票</button>
+          <div class="d-grid gap-2 mx-auto">
+          <button class="btn btn-danger" type="button" id="btn-vote-delete">删除投票</button>
+          <button class="btn btn-info" type="button" id="btn-vote-hide">隐藏投票</button>
+        </div>
+        </div>
+
+
       </div>
     </div>
   </div>
@@ -162,6 +165,20 @@
       <div class="modal-body" id="window-js-body"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="window-js-button"></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="window-js-confirm" tabindex="-1" data-mdb-keyboard="false" data-mdb-backdrop="static" aria-labelledby="window-js-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="window-js-confirm-label"></h5>
+      </div>
+      <div class="modal-body" id="window-js-confirm-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" id="window-js-confirm-cancel"></button>
+        <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" id="window-js-confirm-ok"></button>
       </div>
     </div>
   </div>
