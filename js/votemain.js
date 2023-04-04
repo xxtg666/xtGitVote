@@ -25,6 +25,7 @@ $.ajax({
     url:"https://ac.xxtg666.top/https://api.github.com/user",
     success:function(data,status){
         username = data["login"]
+        if(notAllowUser(username)){new mdb.Modal(document.getElementById("window-login-failed")).show();return}
         let useravatar = data.avatar_url
         document.getElementById("img-github-avatar").src=useravatar
         document.getElementById("ul-github-menu").innerHTML=`<li><a class="dropdown-item" href="#" id="btn-username">${username}</a></li><li><a class="dropdown-item" href="#" id="btn-logout">退出登录</a></li>`

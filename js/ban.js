@@ -8,3 +8,6 @@ function allowUser(user){
         return (user in whitelist)
     }
 }
+function notAllowUser(user){
+    return !allowUser(user)
+}
