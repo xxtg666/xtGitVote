@@ -243,6 +243,7 @@ document.getElementById("btn-vote-finish").addEventListener("click",function (){
     })
 })
 document.getElementById("btn-vote-delete").addEventListener("click",function (){
+    /*
     mconfirm("确认<strong>删除</strong>这个投票？（不可恢复！）","",function (){
         $.ajax({
           url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}`,
@@ -260,7 +261,8 @@ document.getElementById("btn-vote-delete").addEventListener("click",function (){
                 malert("删除投票失败", "错误")
             }
         });
-    })
+    })*/
+    malert("GitHub Rest API 没有提供删除issue的方法，请手动进入数据存储库删除。")
 })
 document.getElementById("btn-vote-hide").addEventListener("click",function (){
     mconfirm("确认<strong>隐藏</strong>这个投票？","",function (){
