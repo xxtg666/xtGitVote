@@ -55,6 +55,8 @@ if (code != false){
             }
             document.getElementById("h-vote-body").innerHTML=cvt(b64d(data["body"].split("\n")[0]))
             document.getElementById("div-vote-tb").style=""
+            document.getElementById("img-vote-info").src=data["user"]["avatar_url"]
+            document.getElementById("p-vote-info-name").innerHTML=cvt(data["user"]["login"])
             $.ajax({
                 url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}/comments`,
                 type:"GET",
