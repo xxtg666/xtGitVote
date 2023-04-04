@@ -232,17 +232,11 @@ document.getElementById("btn-vote-finish").addEventListener("click",function (){
                   },
                   error:function(data,status){
                         malert("结束投票失败", "错误")
-                        setTimeout(function () {
-                            location.href = `${siteURL}/vote.html?id=${code}`
-                        }, 2000)
                     }
                 });
             },
             error:function(data,status){
                 malert("结束投票失败", "错误")
-                setTimeout(function () {
-                    location.href = `${siteURL}/vote.html?id=${code}`
-                }, 2000)
             }
         })
 
@@ -264,9 +258,6 @@ document.getElementById("btn-vote-delete").addEventListener("click",function (){
           },
           error: function(data,status){
                 malert("删除投票失败", "错误")
-                setTimeout(function () {
-                    location.href = `${siteURL}/vote.html?id=${code}`
-                }, 2000)
             }
         });
     })
@@ -287,9 +278,6 @@ document.getElementById("btn-vote-hide").addEventListener("click",function (){
           },
           error: function(data,status){
                 malert("隐藏投票失败", "错误")
-                setTimeout(function () {
-                    location.href = `${siteURL}/vote.html?id=${code}`
-                }, 2000)
             }
         });
     })
