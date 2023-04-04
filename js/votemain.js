@@ -227,13 +227,13 @@ document.getElementById("btn-vote-finish").addEventListener("click",function (){
                   success: function(data) {
                     malert("投票已结束","完成")
                     setTimeout(function () {
-                        location.href = `${siteURL}`
+                        location.href = `${siteURL}/vote.html?id=${code}`
                     }, 2000)
                   },
                   error:function(data,status){
                         malert("结束投票失败", "错误")
                         setTimeout(function () {
-                            location.href = `${siteURL}`
+                            location.href = `${siteURL}/vote.html?id=${code}`
                         }, 2000)
                     }
                 });
@@ -241,7 +241,7 @@ document.getElementById("btn-vote-finish").addEventListener("click",function (){
             error:function(data,status){
                 malert("结束投票失败", "错误")
                 setTimeout(function () {
-                    location.href = `${siteURL}`
+                    location.href = `${siteURL}/vote.html?id=${code}`
                 }, 2000)
             }
         })
@@ -259,13 +259,36 @@ document.getElementById("btn-vote-delete").addEventListener("click",function (){
           success: function(data,status){
                 malert("删除投票成功", "完成")
                 setTimeout(function () {
-                    location.href = `${siteURL}`
+                    location.href = `${siteURL}/vote.html?id=${code}`
                 }, 2000)
           },
           error: function(data,status){
                 malert("删除投票失败", "错误")
                 setTimeout(function () {
-                    location.href = `${siteURL}`
+                    location.href = `${siteURL}/vote.html?id=${code}`
+                }, 2000)
+            }
+        });
+    })
+})
+document.getElementById("btn-vote-hide").addEventListener("click",function (){
+    mconfirm("确认<strong>隐藏</strong>这个投票？","",function (){
+        $.ajax({
+          url: `https://ac.xxtg666.tophttps://api.github.com/repos/${dataRepo}/issues/${code}/labels/xtGitVote`,
+          type: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          },
+          success: function(data,status){
+                malert("隐藏投票成功", "完成")
+                setTimeout(function () {
+                    location.href = `${siteURL}/vote.html?id=${code}`
+                }, 2000)
+          },
+          error: function(data,status){
+                malert("隐藏投票失败", "错误")
+                setTimeout(function () {
+                    location.href = `${siteURL}/vote.html?id=${code}`
                 }, 2000)
             }
         });
