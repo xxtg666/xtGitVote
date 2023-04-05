@@ -55,12 +55,7 @@ $.ajax({
         'permission': 'push'
     },
     success: function (data) {
-        for(i=0;i<data.length;i++){
-            if(data[i]["login"]==username){
-                document.getElementById("div-vote-man").style=""
-                return
-            }
-        }
+        document.getElementById("div-vote-man").style=""
     },
 });
 let userVoted = false;

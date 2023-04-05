@@ -227,24 +227,21 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
             'permission': 'push'
         },
         success: function (data) {
-            for(i=0;i<data.length;i++){
-                if(data[i]["login"]==username){
-        $.ajax({
-            headers:{
-                accept: 'application/json',
-                Authorization: `Bearer ${accessToken}`
-            },
-            data:`{"title":"${title}","body":"${bodystr.replaceAll("\n","\\n")}","labels":["xtGitVote"]}`,
-            type:"POST",
-            url:`${acURL}https://api.github.com/repos/${dataRepo}/issues`,
-            success:function(data,status){
-                document.getElementById("btn-create-vote-submit").innerHTML="发起投票成功"
-                setTimeout(function(){location.reload()},2000)
-            },
-        })
-                    return
-                }
-            }
+            $.ajax({
+                headers:{
+                    accept: 'application/json',
+                    Authorization: `Bearer ${accessToken}`
+                },
+                data:`{"title":"${title}","body":"${bodystr.replaceAll("\n","\\n")}","labels":["xtGitVote"]}`,
+                type:"POST",
+                url:`${acURL}https://api.github.com/repos/${dataRepo}/issues`,
+                success:function(data,status){
+                    document.getElementById("btn-create-vote-submit").innerHTML="发起投票成功"
+                    setTimeout(function(){location.reload()},2000)
+                },
+            })
+        },
+        error:function(){
             document.getElementById("btn-create-vote-submit").innerHTML="你没有权限发起投票"
             document.getElementById("btn-create-vote-submit").disabled="disabled"
             document.getElementById("btn-new-vote").innerHTML="你没有权限发起投票"
