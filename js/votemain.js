@@ -33,7 +33,7 @@ $.ajax({
         Authorization: `token ${accessToken}`
     },
     type:"GET",
-    url:"https://ac.xxtg666.top/https://api.github.com/user",
+    url:`${acURL}https://api.github.com/user`,
     success:function(data,status){
         username = data["login"]
         if(notAllowUser(username)){new mdb.Modal(document.getElementById("window-login-failed")).show();return}
@@ -47,7 +47,22 @@ $.ajax({
     }
 })
 }
-
+$.ajax({
+    url: `${acURL}https://api.github.com/repos/${dataRepo}/collaborators`,
+    type: 'GET',
+    headers: getheader(),
+    data: {
+        'permission': 'push'
+    },
+    success: function (data) {
+        for(i=0;i<data.length;i++){
+            if(data[i]["login"]==username){
+                document.getElementById("div-vote-man").style=""
+                return
+            }
+        }
+    },
+});
 let userVoted = false;
 let comments = [];
 let vchoose = getQueryVariable("voteChoose")
@@ -55,7 +70,7 @@ let code = getQueryVariable("id")
 if (code != false){
     $.ajax({
         headers:getheader(),
-        url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}`,
+        url:`${acURL}https://api.github.com/repos/${dataRepo}/issues/${code}`,
         type:"GET",
         success:function(data,status){try{
             document.getElementById("h-vote-title").innerHTML=cvt(data["title"])
@@ -69,7 +84,7 @@ if (code != false){
             document.getElementById("img-vote-info").src=data["user"]["avatar_url"]
             document.getElementById("p-vote-info-name").innerHTML=cvt(data["user"]["login"])
             $.ajax({
-                url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}/comments`,
+                url:`${acURL}https://api.github.com/repos/${dataRepo}/issues/${code}/comments`,
                 type:"GET",
                 headers:getheader(),
                 success:function(idata,status){
@@ -168,7 +183,7 @@ if (vchoose != false){
             accept: 'application/json',
             Authorization: `Bearer ${accessToken}`
         },
-        url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${c}/comments`,
+        url:`${acURL}https://api.github.com/repos/${dataRepo}/issues/${c}/comments`,
         type:"POST",
         data:`{"body":"${v}"}`,
         success:function(data,status){
@@ -211,12 +226,12 @@ document.getElementById("btn-vote-finish").addEventListener("click",function (){
                 accept: 'application/json',
                 Authorization: `Bearer ${accessToken}`
             },
-            url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}/lock`,
+            url:`${acURL}https://api.github.com/repos/${dataRepo}/issues/${code}/lock`,
             type:"PUT",
             data:`{"lock_reason":"resolved"}`,
             success:function(data,status){
                 $.ajax({
-                  url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}`,
+                  url: `${acURL}https://api.github.com/repos/${dataRepo}/issues/${code}`,
                   type: 'PATCH',
                   headers: {
                     'Authorization': `Bearer ${accessToken}`
@@ -247,7 +262,7 @@ document.getElementById("btn-vote-delete").addEventListener("click",function (){
 
     mconfirm("确认<strong>删除</strong>这个投票？（不可恢复！）","",function (){
         $.ajax({
-          url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}`,
+          url: `${acURL}https://api.github.com/repos/${dataRepo}/issues/${code}`,
           type: 'DELETE',
           headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -269,7 +284,7 @@ document.getElementById("btn-vote-delete").addEventListener("click",function (){
 document.getElementById("btn-vote-hide").addEventListener("click",function (){
     mconfirm("确认<strong>隐藏</strong>这个投票？","",function (){
         $.ajax({
-          url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues/${code}/labels/xtGitVote`,
+          url: `${acURL}https://api.github.com/repos/${dataRepo}/issues/${code}/labels/xtGitVote`,
           type: 'DELETE',
           headers: {
             'Authorization': `Bearer ${accessToken}`

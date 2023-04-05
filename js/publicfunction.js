@@ -79,6 +79,30 @@ function getGitHubLoginURL(c){
         return `https://xtgv-api.xxtg666.top/githublogin/${c}`
     }
     else{
-        return `https://ac.xxtg666.top/https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${c}`
+        return `${acURL}https://github.com/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${c}`
     }
 }
+/*
+let admins = []
+function refreshAdmins() {
+    $.ajax({
+        url: `${acURL}https://api.github.com/repos/${dataRepo}/collaborators`,
+        type: 'GET',
+        headers: getheader(),
+        data: {
+            'permission': 'push'
+        },
+        success: function (data) {
+            admins = data
+        },
+    });
+}
+function isAdmin(user){
+    for(i=0;i<admins.length;i++){
+        if(admins[i]["login"]==user){
+            return true
+        }
+    }
+    return false
+}
+*/

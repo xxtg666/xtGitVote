@@ -46,7 +46,7 @@ $.ajax({
         Authorization: `token ${accessToken}`
     },
     type:"GET",
-    url:"https://ac.xxtg666.top/https://api.github.com/user",
+    url:`${acURL}https://api.github.com/user`,
     success:function(data,status){
         let username = data["login"]
         if(username==null||username==undefined||notAllowUser(username)){new mdb.Modal(document.getElementById("window-login-failed")).show();return}
@@ -64,7 +64,7 @@ $.ajax({
 $.ajax({
     headers:getheader(),
     type:"GET",
-    url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
+    url:`${acURL}https://api.github.com/repos/${dataRepo}/labels`,
     success:function(data,status){
         let havelabel = false
         for(i in data){
@@ -77,7 +77,7 @@ $.ajax({
             $.ajax({
                 headers: getheader(),
                 type: "GET",
-                url: `https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues?state=all&labels=xtGitVote`,
+                url: `${acURL}https://api.github.com/repos/${dataRepo}/issues?state=all&labels=xtGitVote`,
                 success:function(data,status){
                     document.getElementById("div-votes").style=""
                     document.getElementById("div-votes-tip").style=""
@@ -115,7 +115,7 @@ document.getElementById("btn-init-repo").addEventListener("click",function(){
             },
             data:`{"name":"xtGitVote","description":"xtGitVote Data Storage. DO NOT DELETE THIS","color":"3b71ca"}`,
             type:"POST",
-            url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/labels`,
+            url:`${acURL}https://api.github.com/repos/${dataRepo}/labels`,
             success:function(data,status){
                 document.getElementById("btn-init-repo").innerHTML="√ 初始化完成"
                 document.getElementById("btn-init-repo").disabled="disabled"
@@ -220,22 +220,35 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
     bodystr+=`**请前往 [这里](${siteURL}) 参加本次投票，请勿手动在此条 issue 下进行 Comment**`
     //alert(bodystr)
     $.ajax({
-        headers:{
-            accept: 'application/json',
-            Authorization: `Bearer ${accessToken}`
+        url: `${acURL}https://api.github.com/repos/${dataRepo}/collaborators`,
+        type: 'GET',
+        headers: getheader(),
+        data: {
+            'permission': 'push'
         },
-        data:`{"title":"${title}","body":"${bodystr.replaceAll("\n","\\n")}","labels":["xtGitVote"]}`,
-        type:"POST",
-        url:`https://ac.xxtg666.top/https://api.github.com/repos/${dataRepo}/issues`,
-        success:function(data,status){
-            document.getElementById("btn-create-vote-submit").innerHTML="发起投票成功"
-            setTimeout(function(){location.reload()},2000)
-        },
-        error:function(data,status){
+        success: function (data) {
+            for(i=0;i<data.length;i++){
+                if(data[i]["login"]==username){
+        $.ajax({
+            headers:{
+                accept: 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            },
+            data:`{"title":"${title}","body":"${bodystr.replaceAll("\n","\\n")}","labels":["xtGitVote"]}`,
+            type:"POST",
+            url:`${acURL}https://api.github.com/repos/${dataRepo}/issues`,
+            success:function(data,status){
+                document.getElementById("btn-create-vote-submit").innerHTML="发起投票成功"
+                setTimeout(function(){location.reload()},2000)
+            },
+        })
+                    return
+                }
+            }
             document.getElementById("btn-create-vote-submit").innerHTML="你没有权限发起投票"
             document.getElementById("btn-create-vote-submit").disabled="disabled"
             document.getElementById("btn-new-vote").innerHTML="你没有权限发起投票"
             document.getElementById("btn-new-vote").disabled="disabled"
-        }
-    })
+        },
+    });
 })

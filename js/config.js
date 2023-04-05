@@ -1,4 +1,4 @@
-// 网站地址
+// 网站地址（不以/结尾）
 let siteURL = "https://vote.xxtg666.top"
 // 请先创建一个 GitHub OAuth App 用于用户登录（你不能用我这个，会报错无法登录）
 // https://github.com/settings/applications/new
@@ -14,3 +14,6 @@ let clientID = "dcbb5c698b252fbc33a3"
 let clientSecret = ""
 // 创建一个新仓库，用于数据存放（必须启用issue）（需要用户有管理仓库的权限才可创建投票，所以不能直接用我这个）
 let dataRepo = "xxtg666/xtGitVote-data"
+// 绕过跨域请求服务器网址（以/结尾）
+// 你可以使用js/ac.cloudflare-worker.js自行搭建
+let acURL = "https://ac.xxtg666.top/"
