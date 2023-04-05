@@ -9,6 +9,10 @@ let cookie_save = getCookie("allowCookie")
 if(cookie_save=="true"){
     allowCookies=true
 }
+function addDarkmodeWidget() {
+    new Darkmode(darkmodeoptions).showWidget();
+  }
+  window.addEventListener('load', addDarkmodeWidget);
 let last_confirm_func = function(){}
 function mconfirm(body,title="提示信息",func=function(){},ok="确认",cancel="取消"){
     document.getElementById("window-js-confirm-ok").removeEventListener("click",last_confirm_func)
