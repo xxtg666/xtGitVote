@@ -49,9 +49,15 @@ function _getQueryVariable(query,variable)
     }
     return false;
 }
-function setCookie(cname,cvalue)
+let allowCookies = false
+function setCookie(cname,cvalue,save=true)
 {
-  document.cookie = cname + "=" + cvalue + "; ";
+    if(allowCookies && save){
+        document.cookie = cname + "=" + cvalue + "; expires=Wed, 01 Jan 3000 00:00:00 GMT";
+    }
+    else {
+        document.cookie = cname + "=" + cvalue + "; ";
+    }
 }
 function getCookie(cname)
 {

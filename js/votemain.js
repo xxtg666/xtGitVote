@@ -4,6 +4,10 @@ function malert(body,title="提示信息",button="确认"){
     document.getElementById("window-js-button").innerHTML=button
     new mdb.Modal(document.getElementById("window-js")).show()
 }
+let cookie_save = getCookie("allowCookie")
+if(cookie_save=="true"){
+    allowCookies=true
+}
 let last_confirm_func = function(){}
 function mconfirm(body,title="提示信息",func=function(){},ok="确认",cancel="取消"){
     document.getElementById("window-js-confirm-ok").removeEventListener("click",last_confirm_func)

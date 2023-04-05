@@ -4,7 +4,13 @@ function malert(body,title="提示信息",button="确认"){
     document.getElementById("window-js-button").innerHTML=button
     new mdb.Modal(document.getElementById("window-js")).show()
 }
-
+let cookie_save = getCookie("allowCookie")
+if(cookie_save==""){
+    document.getElementById("div-cookie").style=""
+}else if(cookie_save=="false"){}
+else if(cookie_save=="true"){
+    allowCookies=true
+}
 document.getElementById("btn-login-with-github").addEventListener("click",function(){
     let aurl = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=repo`
     malert(POLICY,"用户协议 与 免责声明",`<a href="${aurl}">我已阅读并同意《用户协议与免责声明》，继续登录</a>`)
@@ -248,4 +254,14 @@ document.getElementById("btn-create-vote-submit").addEventListener("click",funct
             document.getElementById("btn-new-vote").disabled="disabled"
         },
     });
+})
+document.getElementById("btn-cookie-accept").addEventListener("click",function(){
+    document.getElementById("div-cookie").style="display:none"
+    allowCookies = true
+    setCookie("allowCookie","true")
+})
+document.getElementById("btn-cookie-refuse").addEventListener("click",function(){
+    document.getElementById("div-cookie").style="display:none"
+    allowCookies = false
+    setCookie("allowCookie","false")
 })
