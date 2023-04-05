@@ -1,5 +1,13 @@
 // 网站地址（不以/结尾）
 let siteURL = "https://vote.xxtg666.top"
+// 网站名称
+let siteName = "xtGitVote"
+// 网站标题
+let siteTitle = "xxtg666-xtGitVote-投票站"
+// 网站简介（显示在主页上）
+let siteInfo = "这是一个使用 GitHub Repo 存储数据的投票网站"
+// 投票页面标题（自动替换:{i}id)
+let voteTitle = "Vote#{i}-xtGitVote"
 // 请先创建一个 GitHub OAuth App 用于用户登录（你不能用我这个，会报错无法登录）
 // https://github.com/settings/applications/new
 // Application name : 随便写，用户登录的时候会看到这个名称，可以写网站名称

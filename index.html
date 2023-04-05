@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>xtGitVote</title>
+    <title></title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -33,7 +33,7 @@
       <i class="fas fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <span>xtGitVote</span>
+      <span id="nav-name"></span>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <span class="nav-link">主页</span>
@@ -86,9 +86,8 @@
 </div>
 <!-- 投票页面主体 -->
 <div id="div-votes-tip" class="p-5 text-center bg-light" style="display:none;">
-  <h2 class="mb-3">xxtg666-xtGitVote-投票站</h2>
-  <h5 class="mb-3">这是一个使用 GitHub Repo 存储数据的投票网站</h5>
-  <h5 class="mb-3">如果你有管理员权限，可以创建投票</h5>
+  <h2 class="mb-3" id="h-title"></h2>
+  <h5 class="mb-3" id="h-info"></h5>
   <button type="button" class="btn btn-primary" id="btn-new-vote">创建新投票</button>
 </div>
 <div class="container"><div class="row" id="div-votes" style="display:none;"></div>

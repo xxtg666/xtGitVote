@@ -4,6 +4,10 @@ function malert(body,title="提示信息",button="确认"){
     document.getElementById("window-js-button").innerHTML=button
     new mdb.Modal(document.getElementById("window-js")).show()
 }
+document.getElementById("nav-name").innerHTML = siteName
+document.getElementById("h-title").innerHTML = siteTitle
+document.getElementById("h-info").innerHTML = siteInfo
+document.title = siteTitle
 document.getElementById("btn-login-with-github").addEventListener("click",function(){
     let aurl = `https://github.com/login/oauth/authorize?client_id=${clientID}&scope=repo`
     malert(POLICY,"用户协议 与 免责声明",`<a href="${aurl}">我已阅读并同意《用户协议与免责声明》，继续登录</a>`)

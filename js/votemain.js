@@ -4,6 +4,7 @@ function malert(body,title="提示信息",button="确认"){
     document.getElementById("window-js-button").innerHTML=button
     new mdb.Modal(document.getElementById("window-js")).show()
 }
+document.getElementById("nav-name").innerHTML = siteName
 let cookie_save = getCookie("allowCookie")
 if(cookie_save=="true"){
     allowCookies=true
@@ -62,11 +63,13 @@ $.ajax({
         document.getElementById("div-vote-man").style=""
     },
 });
+document.title=voteTitle.replaceAll("{i}","")
 let userVoted = false;
 let comments = [];
 let vchoose = getQueryVariable("voteChoose")
 let code = getQueryVariable("id")
 if (code != false){
+    document.title=voteTitle.replaceAll("{i}",code)
     $.ajax({
         headers:getheader(),
         url:`${acURL}https://api.github.com/repos/${dataRepo}/issues/${code}`,
