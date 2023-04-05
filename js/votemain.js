@@ -73,6 +73,7 @@ if (code != false){
                 document.getElementById("h-vote-title").innerHTML+='&ensp;<span class="badge rounded-pill badge-success">进行中</span>'
             }else{
                 document.getElementById("h-vote-title").innerHTML+='&ensp;<span class="badge rounded-pill badge-danger">已截止</span>'
+                document.getElementById("btn-vote-finish").style="display:none"
             }
             document.getElementById("h-vote-body").innerHTML=cvt(b64d(data["body"].split("\n")[0]))
             document.getElementById("div-vote-tb").style=""
@@ -142,6 +143,16 @@ if (code != false){
                     malert("加载投票选项时发生未知错误","错误")
                 }
             })
+            let has_label = false
+            for(i=0;i<data["labels"].length;i++){
+                if(data["labels"][i]["name"]=="xtGitVote"){
+                    has_label = true
+                }
+            }
+            if(!has_label){
+                document.getElementById("btn-vote-hide").style="display:none"
+                document.getElementById("btn-vote-unhide").style=""
+            }
         }catch(e){
             malert("加载投票信息时发生未知错误","错误")
         }},
@@ -273,7 +284,7 @@ document.getElementById("btn-vote-delete").addEventListener("click",function (){
             }
         });
     })
-    malert("GitHub Rest API 没有提供删除issue的方法，请手动进入数据存储库删除。")
+    // malert("GitHub Rest API 没有提供删除issue的方法，请手动进入数据存储库删除。")
 })
 */
 document.getElementById("btn-vote-hide").addEventListener("click",function (){
@@ -292,6 +303,29 @@ document.getElementById("btn-vote-hide").addEventListener("click",function (){
           },
           error: function(data,status){
                 malert("隐藏投票失败", "错误")
+            }
+        });
+    })
+})
+document.getElementById("btn-vote-unhide").addEventListener("click",function (){
+    mconfirm("确认<strong>显示</strong>这个投票？","",function (){
+        $.ajax({
+          url: `${acURL}https://api.github.com/repos/${dataRepo}/issues/${code}/labels`,
+          type: 'POST',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          },
+          data: JSON.stringify({
+                labels: ['xtGitVote']
+            }),
+          success: function(data,status){
+                malert("显示投票成功", "完成")
+                setTimeout(function () {
+                    location.href = `${siteURL}/vote.html?id=${code}`
+                }, 2000)
+          },
+          error: function(data,status){
+                malert("显示投票失败", "错误")
             }
         });
     })
