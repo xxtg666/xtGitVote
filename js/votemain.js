@@ -227,7 +227,7 @@ function displayChooseB(title,number,isuser,people,percent){
     let u='&ensp;<span class="badge badge-success rounded-pill">我投票的</span>'
     if(isuser!=true){u=""}
     htm=`<li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
+    <div class="ms-2 me-auto" style="width:95%">
       <div class="fw-bold">${cvt(title)}&ensp;<span class="badge badge-primary rounded-pill">${people}人</span>${u}</div>
       <div class="progress" style="height: 20px;">
     <div class="progress-bar" role="progressbar" style="width: ${percent}%;" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100">${percent}%</div>

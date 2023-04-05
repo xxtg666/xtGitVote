@@ -30,16 +30,16 @@ const POLICY = `
 本协议的条款和内容可能根据实际情况进行变更。如果条款发生变更，本网站将在网站首页公告修改的内容。如果用户不同意修改后的条款，应立即停止使用本网站。如果用户继续使用本网站，则视为用户已经接受修改后的条款。
 `
 const darkmodeoptions = {
-      bottom: '64px', // default: '32px'
-      right: 'unset', // default: '32px'
-      left: '32px', // default: 'unset'
+      bottom: '90%', // default: '32px'
+      right: '10px', // default: '32px'
+      left: 'unset', // default: 'unset'
       time: '0.3s', // default: '0.3s'
       mixColor: '#fff', // default: '#fff'
       backgroundColor: '#fff',  // default: '#fff'
       buttonColorDark: '#100f2c',  // default: '#100f2c'
       buttonColorLight: '#fff', // default: '#fff'
       saveInCookies: true, // default: true,
-      label: '🌓', // default: ''
+      label: '', // default: ''
       autoMatchOsTheme: true // default: true
 }
 function b64e(str){
