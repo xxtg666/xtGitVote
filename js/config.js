@@ -21,7 +21,7 @@ let clientID = "dcbb5c698b252fbc33a3"
 // 复制 Client secret 填入下方
 let clientSecret = ""
 // 创建一个新仓库，用于数据存放（必须启用issue）（需要用户有管理仓库的权限才可创建投票，所以不能直接用我这个）
-let dataRepo = "xxtg666/xtGitVote-data"
+let dataRepo = "xxtg667/xtGitVote-data"
 // 绕过跨域请求服务器网址（以/结尾）
 // 你可以使用js/ac.cloudflare-worker.js自行搭建
 let acURL = "https://ac.xxtg666.top/"
